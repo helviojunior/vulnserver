@@ -18,7 +18,7 @@ Binaries have been provided in this package, however if you wish to compile the 
 
 ## Download compiled software
 
-http://sites.google.com/site/lupingreycorner/vulnserver.zip
+https://github.com/helviojunior/vulnserver/releases/download/1.0/vulnserver_v1.0.zip or http://sites.google.com/site/lupingreycorner/vulnserver.zip
 
 ## Running the software
 
