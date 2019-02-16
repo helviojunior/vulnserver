@@ -16,6 +16,10 @@ Though it does make an attempt to mimic a (simple) legitimate server program thi
 
 Binaries have been provided in this package, however if you wish to compile the software from the provided source files instructions are included in the file COMPILING.txt.
 
+## Download compiled software
+
+http://sites.google.com/site/lupingreycorner/vulnserver.zip
+
 ## Running the software
 
 To run the software, simply execute vulnserver.exe.  The provided essfunc.dll library must be in a location where it can be found by vulnserver.exe - keeping both files in the same directory will usually work fine.
