@@ -1,6 +1,6 @@
 # Vulnserver
 
-Check my blog at http://www.thegreycorner.com/ for more information and updates to this software.
+This is an fork of orignal vulserver https://github.com/stephenbradshaw/vulnserver, check author blog at http://www.thegreycorner.com/ for more information and updates to this software.
 
 ## About the software
 
