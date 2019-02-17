@@ -42,6 +42,7 @@ If you're stuck, you can refer to the following to get an idea of how to proceed
 * [Restricted Character Set Buffer Overflow Tutorial for Vulnserver](http://www.thegreycorner.com/2011/12/restricted-character-set-buffer.html)
 * [Omlette Egghunter Shellcode](http://www.thegreycorner.com/2013/10/omlette-egghunter-shellcode.html)
 * [Vulnserver KSTET WS2_32 Recv Function Re-Use](https://deceiveyour.team/2018/10/15/vulnserver-kstet-ws2_32-recv-function-re-use/)
+* [Vulnserver KSTET WS2_32 Recv Function Re-Use - In Portuguese](https://www.helviojunior.com.br/it/security/criacao-de-exploits/criacao-de-exploits-parte-4-estudo-de-caso-vulnserver-kstet-com-reaproveitamento-da-funcao-ws2_32-recv/)
 * [Vulnserver – KSTET command exploit with egghunter](http://sh3llc0d3r.com/vulnserver-kstet-command-exploit-with-egghunter/)
 
 ## License
