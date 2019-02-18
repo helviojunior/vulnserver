@@ -23,13 +23,17 @@ Redistribution and use in source and binary forms, with or without modification,
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+Changed by Helvio Junior (M4v3r1cK)
+*/
+
 
 #include <windows.h>
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.00"
+#define VERSION "1.01"
 #define DEFAULT_BUFLEN 4096
 #define DEFAULT_PORT "9999"
 
@@ -179,7 +183,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				const char NotImplemented[47] = "Command specific help has not been implemented\n";
 				SendResult = send( Client, NotImplemented, sizeof(NotImplemented), 0 );
 			} else if (strncmp(RecvBuf, "HELP", 4) == 0) {
-				const char ValidCommands[251] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nKSTAN [lstan_value]\nEXIT\n";
+				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
 				SendResult = send( Client, ValidCommands, sizeof(ValidCommands), 0 );
 			} else if (strncmp(RecvBuf, "STATS ", 6) == 0) {
 				char *StatBuf = malloc(120);
@@ -227,6 +231,18 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 			} else if (strncmp(RecvBuf, "GDOG ", 5) == 0) {				
 				strncpy(GdogBuf, RecvBuf, 1024);
 				SendResult = send( Client, "GDOG RUNNING\n", 13, 0 );
+			} else if (strncmp(RecvBuf, "SBIG ", 5) == 0) {
+				char *SbigBuf = malloc(2000);
+				strncpy(SbigBuf, RecvBuf, 2000);
+				memset(RecvBuf, 0, DEFAULT_BUFLEN);
+				Function2(SbigBuf);
+				SendResult = send( Client, "SBIG SUCCESSFUL\n", 17, 0 );
+			} else if (strncmp(RecvBuf, "HBIG ", 5) == 0) {
+				char *HbigBuf = malloc(2100);
+				strncpy(HbigBuf, RecvBuf, 2100);
+				memset(RecvBuf, 0, DEFAULT_BUFLEN);
+				Function3(HbigBuf);
+				SendResult = send( Client, "HBIG SUCCESSFUL\n", 17, 0 );
 			} else if (strncmp(RecvBuf, "KSTET ", 6) == 0) {
 				char *KstetBuf = malloc(100);
 				strncpy(KstetBuf, RecvBuf, 100);
