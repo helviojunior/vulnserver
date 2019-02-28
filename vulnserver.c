@@ -33,7 +33,7 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.01"
+#define VERSION "1.02"
 #define DEFAULT_BUFLEN 4096
 #define DEFAULT_PORT "9999"
 
@@ -231,6 +231,8 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 			} else if (strncmp(RecvBuf, "GDOG ", 5) == 0) {				
 				strncpy(GdogBuf, RecvBuf, 1024);
 				SendResult = send( Client, "GDOG RUNNING\n", 13, 0 );
+			} else if (strncmp(RecvBuf, "TSEH ", 5) == 0) {				
+				Function4(RecvBuf);
 			} else if (strncmp(RecvBuf, "SBIG ", 5) == 0) {
 				char *SbigBuf = malloc(2000);
 				strncpy(SbigBuf, RecvBuf, 2000);
