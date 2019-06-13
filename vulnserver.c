@@ -33,7 +33,7 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.02"
+#define VERSION "1.03"
 #define DEFAULT_BUFLEN 4096
 #define DEFAULT_PORT "9999"
 
@@ -183,7 +183,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				const char NotImplemented[47] = "Command specific help has not been implemented\n";
 				SendResult = send( Client, NotImplemented, sizeof(NotImplemented), 0 );
 			} else if (strncmp(RecvBuf, "HELP", 4) == 0) {
-				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
+				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
 				SendResult = send( Client, ValidCommands, sizeof(ValidCommands), 0 );
 			} else if (strncmp(RecvBuf, "STATS ", 6) == 0) {
 				char *StatBuf = malloc(120);
