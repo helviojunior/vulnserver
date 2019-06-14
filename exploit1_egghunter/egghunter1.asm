@@ -1,7 +1,8 @@
 [BITS 32]
 
 ; EggHunter usando a função NtAccessCheckAndAuditAlarm
-; Autor: Helvio Junior (M4v3r1cK)
+; Autor: skape mmiller[at]hick.org 
+; Ajustes por: Helvio Junior (M4v3r1cK)
 ;
 ; Procedimento de compilação do EggHunter
 ; nasm egghunter1.asm -o egghunter -l egghunter.lst
