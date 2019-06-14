@@ -27,13 +27,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 Changed by Helvio Junior (M4v3r1cK)
 */
 
-
+#include <winsock2.h>
 #include <windows.h>
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.03"
+#define VERSION "1.04"
 #define DEFAULT_BUFLEN 4096
 #define DEFAULT_PORT "9999"
 
@@ -183,7 +183,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				const char NotImplemented[47] = "Command specific help has not been implemented\n";
 				SendResult = send( Client, NotImplemented, sizeof(NotImplemented), 0 );
 			} else if (strncmp(RecvBuf, "HELP", 4) == 0) {
-				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
+				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nAXP1 [hbig_value]\nAXP2 [hbig_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
 				SendResult = send( Client, ValidCommands, sizeof(ValidCommands), 0 );
 			} else if (strncmp(RecvBuf, "STATS ", 6) == 0) {
 				char *StatBuf = malloc(120);
@@ -245,6 +245,28 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				memset(RecvBuf, 0, DEFAULT_BUFLEN);
 				Function3(HbigBuf);
 				SendResult = send( Client, "HBIG SUCCESSFUL\n", 17, 0 );
+			} else if (strncmp(RecvBuf, "AXP1 ", 5) == 0) {
+				char *Axp1Buf = malloc(3000);
+				memset(Axp1Buf, 0, 3000);
+				for (i = 1998; i < RecvBufLen; i++) {
+					if ((char)RecvBuf[i] == '<') {
+						strncpy(Axp1Buf, RecvBuf, 3000);				
+						Function3(Axp1Buf);
+						break;
+					}
+				}				
+				SendResult = send( Client, "AXP1 COMPLETE\n", 14, 0 );
+			} else if (strncmp(RecvBuf, "AXP2 ", 5) == 0) {
+				char *Axp2Buf = malloc(100);
+				memset(Axp2Buf, 0, 100);
+				for (i = 99; i < RecvBufLen; i++) {
+					if ((char)RecvBuf[i] == '>') {
+						strncpy(Axp2Buf, RecvBuf, 100);				
+						Function2(Axp2Buf);
+						break;
+					}
+				}		
+				SendResult = send( Client, "AXP2 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "KSTET ", 6) == 0) {
 				char *KstetBuf = malloc(100);
 				strncpy(KstetBuf, RecvBuf, 100);
