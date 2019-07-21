@@ -33,10 +33,9 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.04"
+#define VERSION "1.05"
 #define DEFAULT_BUFLEN 4096
 #define DEFAULT_PORT "9999"
-
 
 void Function1(char *Input);
 void Function2(char *Input);
@@ -183,7 +182,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				const char NotImplemented[47] = "Command specific help has not been implemented\n";
 				SendResult = send( Client, NotImplemented, sizeof(NotImplemented), 0 );
 			} else if (strncmp(RecvBuf, "HELP", 4) == 0) {
-				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nAXP1 [hbig_value]\nAXP2 [hbig_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
+				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nAXP1 [axp1_value]\nAXP2 [axp2_value]\nAXP3 [axp3_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
 				SendResult = send( Client, ValidCommands, sizeof(ValidCommands), 0 );
 			} else if (strncmp(RecvBuf, "STATS ", 6) == 0) {
 				char *StatBuf = malloc(120);
@@ -267,6 +266,13 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 					}
 				}		
 				SendResult = send( Client, "AXP2 COMPLETE\n", 14, 0 );
+			} else if (strncmp(RecvBuf, "AXP3 ", 5) == 0) {
+				char ascii_str[] = "M4v3r1cK";
+				strncpy(GdogBuf, RecvBuf, 1024);
+				if (RecvBufLen > 50){
+					strncpy(GdogBuf, ascii_str, strlen(ascii_str));
+				}
+				SendResult = send( Client, "AXP3 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "KSTET ", 6) == 0) {
 				char *KstetBuf = malloc(100);
 				strncpy(KstetBuf, RecvBuf, 100);
