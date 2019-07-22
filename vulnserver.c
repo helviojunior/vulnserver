@@ -33,7 +33,7 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.05"
+#define VERSION "1.06"
 #define DEFAULT_BUFLEN 4096
 #define DEFAULT_PORT "9999"
 
@@ -268,9 +268,10 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				SendResult = send( Client, "AXP2 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "AXP3 ", 5) == 0) {
 				char ascii_str[] = "M4v3r1cK";
+				memset(GdogBuf, 0, 1024);
 				strncpy(GdogBuf, RecvBuf, 1024);
 				if (RecvBufLen > 50){
-					strncpy(GdogBuf, ascii_str, strlen(ascii_str));
+					strncpy(GdogBuf+50, ascii_str, strlen(ascii_str));
 				}
 				SendResult = send( Client, "AXP3 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "KSTET ", 6) == 0) {
