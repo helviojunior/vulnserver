@@ -33,8 +33,8 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.06"
-#define DEFAULT_BUFLEN 4096
+#define VERSION "1.07"
+#define DEFAULT_BUFLEN 40960
 #define DEFAULT_PORT "9999"
 
 void Function1(char *Input);
@@ -166,6 +166,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 	char BigEmpty[1000];
 	char *GdogBuf = malloc(1024);
 	int Result, SendResult, i, k;
+	int RecvLen = 0;
 	memset(BigEmpty, 0, 1000);
 	memset(RecvBuf, 0, DEFAULT_BUFLEN);
 	SOCKET Client = (SOCKET)CSocket; 
@@ -178,11 +179,13 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 	while (CSocket) {
 		Result = recv(Client, RecvBuf, RecvBufLen, 0);
 		if (Result > 0) {
+			RecvLen = strlen(RecvBuf);
+			printf("Received: %d bytes\n", RecvLen);
 			if (strncmp(RecvBuf, "HELP ", 5) == 0) {
 				const char NotImplemented[47] = "Command specific help has not been implemented\n";
 				SendResult = send( Client, NotImplemented, sizeof(NotImplemented), 0 );
 			} else if (strncmp(RecvBuf, "HELP", 4) == 0) {
-				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nAXP1 [axp1_value]\nAXP2 [axp2_value]\nAXP3 [axp3_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
+				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nAXP1 [axp1_value]\nAXP2 [axp2_value]\nAXP3 [axp3_value]\nAXP4 [axp4_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
 				SendResult = send( Client, ValidCommands, sizeof(ValidCommands), 0 );
 			} else if (strncmp(RecvBuf, "STATS ", 6) == 0) {
 				char *StatBuf = malloc(120);
@@ -274,6 +277,23 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 					strncpy(GdogBuf+50, ascii_str, strlen(ascii_str));
 				}
 				SendResult = send( Client, "AXP3 COMPLETE\n", 14, 0 );
+			} else if (strncmp(RecvBuf, "AXP4 ", 5) == 0) {
+				char *Axp4Buf = malloc(RecvLen);
+				int l = 200;
+				if (RecvLen < l) {
+					l = RecvLen;
+				}
+				memset(Axp4Buf, 0, RecvLen);
+				memset(Axp4Buf, 0x01, l);
+				for (i = 199; i < RecvLen; i++) {
+					if ((byte)RecvBuf[i] > 0x7f) {
+						Axp4Buf[i] = (byte)RecvBuf[i] - 0x7f;
+					} else {
+						Axp4Buf[i] = RecvBuf[i];
+					}
+				}
+				Function1(Axp4Buf);
+				SendResult = send( Client, "AXP4 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "KSTET ", 6) == 0) {
 				char *KstetBuf = malloc(100);
 				strncpy(KstetBuf, RecvBuf, 100);
@@ -351,4 +371,3 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 
 	}	
 }
-
