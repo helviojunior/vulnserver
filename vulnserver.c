@@ -264,7 +264,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				for (i = 99; i < RecvBufLen; i++) {
 					if ((char)RecvBuf[i] == '>') {
 						strncpy(Axp2Buf, RecvBuf, 100);				
-						Function2(Axp2Buf);
+						Function1(Axp2Buf);
 						break;
 					}
 				}		
