@@ -33,7 +33,7 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.07"
+#define VERSION "1.08"
 #define DEFAULT_BUFLEN 40960
 #define DEFAULT_PORT "9999"
 
