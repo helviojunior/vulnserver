@@ -159,6 +159,11 @@ void Function4(char *Input) {
 	strcpy(Buffer2S, Input);
 }
 
+void Function5(char *Input) {
+	char Buffer2S[10000]; //A criacao dessa variavel faz com que o espaco do ESP seja preenchido com os zeros
+	Function1(Input);
+}
+
 
 DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 	int RecvBufLen = DEFAULT_BUFLEN;
@@ -259,12 +264,12 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				}				
 				SendResult = send( Client, "AXP1 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "AXP2 ", 5) == 0) {
-				char *Axp2Buf = malloc(100);
-				memset(Axp2Buf, 0, 100);
-				for (i = 99; i < RecvBufLen; i++) {
+				char *Axp2Buf = malloc(5000);
+				memset(Axp2Buf, 0, 5000);
+				for (i = 190; i < RecvBufLen; i++) {
 					if ((char)RecvBuf[i] == '>') {
-						strncpy(Axp2Buf, RecvBuf, 100);				
-						Function1(Axp2Buf);
+						strncpy(Axp2Buf, RecvBuf, 200);				
+						Function5(Axp2Buf);
 						break;
 					}
 				}		
