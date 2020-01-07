@@ -2,10 +2,8 @@
 
 /*
 VulnServer - a deliberately vulnerable threaded TCP server application
-
 This is vulnerable software, don't run it on an important system!  The author assumes no responsibility if 
 you run this software and your system gets compromised, because this software was designed to be exploited!
-
 Visit my blog for more details: http://www.thegreycorner.com
 */
 
@@ -13,13 +11,10 @@ Visit my blog for more details: http://www.thegreycorner.com
 /*
 Copyright (c) 2010, Stephen Bradshaw
 All rights reserved.
-
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
     * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
     * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
     * Neither the name of the organization nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -33,7 +28,7 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.08"
+#define VERSION "1.09"
 #define DEFAULT_BUFLEN 40960
 #define DEFAULT_PORT "9999"
 
@@ -190,7 +185,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				const char NotImplemented[47] = "Command specific help has not been implemented\n";
 				SendResult = send( Client, NotImplemented, sizeof(NotImplemented), 0 );
 			} else if (strncmp(RecvBuf, "HELP", 4) == 0) {
-				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nAXP1 [axp1_value]\nAXP2 [axp2_value]\nAXP3 [axp3_value]\nAXP4 [axp4_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
+				const char ValidCommands[] = "Valid Commands:\nHELP\nSTATS [stat_value]\nRTIME [rtime_value]\nLTIME [ltime_value]\nSRUN [srun_value]\nTRUN [trun_value]\nGMON [gmon_value]\nGDOG [gdog_value]\nTSEH [tseh_value]\nSBIG [sbig_value]\nHBIG [hbig_value]\nAXP0 [axp0_value]\nAXP1 [axp1_value]\nAXP2 [axp2_value]\nAXP3 [axp3_value]\nAXP4 [axp4_value]\nKSTET [kstet_value]\nGTER [gter_value]\nHTER [hter_value]\nLTER [lter_value]\nHGIB [hbig_value]\nKSTAN [lstan_value]\nEXIT\n";
 				SendResult = send( Client, ValidCommands, sizeof(ValidCommands), 0 );
 			} else if (strncmp(RecvBuf, "STATS ", 6) == 0) {
 				char *StatBuf = malloc(120);
@@ -252,6 +247,11 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 				memset(RecvBuf, 0, DEFAULT_BUFLEN);
 				Function3(HbigBuf);
 				SendResult = send( Client, "HBIG SUCCESSFUL\n", 17, 0 );
+			} else if (strncmp(RecvBuf, "AXP0 ", 5) == 0) {
+				char *Axp0Buf = malloc(3000);
+				memset(Axp0Buf, 0, 3000);
+				Function5(Axp0Buf);
+				SendResult = send( Client, "AXP0 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "AXP1 ", 5) == 0) {
 				char *Axp1Buf = malloc(3000);
 				memset(Axp1Buf, 0, 3000);
