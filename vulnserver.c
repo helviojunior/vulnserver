@@ -28,7 +28,7 @@ Changed by Helvio Junior (M4v3r1cK)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define VERSION "1.09"
+#define VERSION "1.10"
 #define DEFAULT_BUFLEN 40960
 #define DEFAULT_PORT "9999"
 
@@ -250,6 +250,7 @@ DWORD WINAPI ConnectionHandler(LPVOID CSocket) {
 			} else if (strncmp(RecvBuf, "AXP0 ", 5) == 0) {
 				char *Axp0Buf = malloc(3000);
 				memset(Axp0Buf, 0, 3000);
+				strncpy(Axp0Buf, RecvBuf, RecvLen);
 				Function5(Axp0Buf);
 				SendResult = send( Client, "AXP0 COMPLETE\n", 14, 0 );
 			} else if (strncmp(RecvBuf, "AXP1 ", 5) == 0) {
